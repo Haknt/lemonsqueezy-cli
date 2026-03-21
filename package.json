@@ -1,0 +1,51 @@
+{
+  "name": "lemonsqueezy-cli",
+  "version": "0.1.0",
+  "description": "CLI for the LemonSqueezy API — built for AI coding agents and humans",
+  "author": "Hakan Taskopru",
+  "license": "MIT",
+  "type": "module",
+  "bin": {
+    "lemonsqueezy": "./dist/index.js"
+  },
+  "files": [
+    "dist",
+    "SKILL.md",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "lemonsqueezy",
+    "lemon-squeezy",
+    "cli",
+    "payments",
+    "saas",
+    "subscriptions",
+    "ai-tools",
+    "claude-code"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "lint": "eslint src/",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "prepublishOnly": "npm run build"
+  },
+  "dependencies": {
+    "@lemonsqueezy/lemonsqueezy.js": "^4.0.0",
+    "chalk": "^5.4.0",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/yargs": "^17.0.33",
+    "tsup": "^8.0.0",
+    "typescript": "^5.7.0",
+    "vitest": "^3.0.0"
+  }
+}
