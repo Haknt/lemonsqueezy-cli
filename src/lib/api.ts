@@ -5,12 +5,12 @@ import {
   errorCodeFromStatus,
   EXIT_ERROR,
 } from "./errors.js";
-import type { GlobalOptions, ApiItem, FlatItem, ListMeta } from "./types.js";
+import type { ApiItem, FlatItem, ListMeta } from "./types.js";
 
 let initialized = false;
 let cachedStoreId: string | undefined;
 
-export function initApi(opts: Partial<GlobalOptions>): void {
+export function initApi(opts: any): void {
   if (initialized) return;
 
   const apiKey = opts.apiKey || process.env.LEMONSQUEEZY_API_KEY;
@@ -46,7 +46,7 @@ export function flattenList(
 
 export async function callApi<T>(
   fn: () => Promise<{ data: T | null; error: unknown; statusCode?: number | null }>,
-  opts: Partial<GlobalOptions>,
+  opts: any,
 ): Promise<T> {
   initApi(opts);
 
@@ -74,7 +74,7 @@ export async function callApi<T>(
 }
 
 export async function resolveStoreId(
-  opts: Partial<GlobalOptions>,
+  opts: any,
 ): Promise<string> {
   const explicit = opts.storeId || process.env.LEMONSQUEEZY_STORE_ID;
   if (explicit) return explicit;

@@ -7,7 +7,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -17,7 +16,7 @@ const COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const ordersCommand: CommandModule<{}, GlobalOptions> = {
+export const ordersCommand: CommandModule = {
   command: "orders",
   describe: "Manage orders",
   builder: (yargs) =>
@@ -47,7 +46,7 @@ export const ordersCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listOrders({
                 filter,
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );

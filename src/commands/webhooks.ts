@@ -8,7 +8,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -17,7 +16,7 @@ const COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const webhooksCommand: CommandModule<{}, GlobalOptions> = {
+export const webhooksCommand: CommandModule = {
   command: "webhooks",
   describe: "Manage webhooks",
   builder: (yargs) =>
@@ -41,7 +40,7 @@ export const webhooksCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listWebhooks({
                 filter: { storeId },
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );
@@ -63,7 +62,7 @@ export const webhooksCommand: CommandModule<{}, GlobalOptions> = {
             .option("secret", { type: "string", demandOption: true, describe: "Webhook signing secret" }),
         async (argv) => {
           const storeId = await resolveStoreId(argv);
-          const events = (argv.events as string).split(",").map((e) => e.trim());
+          const events = (argv.events as string).split(",").map((e) => e.trim()) as any[];
           const data = await callApi(
             () =>
               createWebhook(storeId, {

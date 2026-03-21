@@ -1,4 +1,4 @@
-import type { GlobalOptions, FlatItem, ListMeta, Column } from "./types.js";
+import type { FlatItem, ListMeta, Column } from "./types.js";
 
 const useColor =
   !process.env.NO_COLOR && process.argv.indexOf("--no-color") === -1;
@@ -13,7 +13,7 @@ function bold(s: string): string {
 
 export function outputItem(
   item: FlatItem,
-  opts: Partial<GlobalOptions>,
+  opts: any,
 ): void {
   if (opts.json) {
     process.stdout.write(JSON.stringify(item) + "\n");
@@ -43,7 +43,7 @@ export function outputList(
   items: FlatItem[],
   columns: Column[],
   meta: ListMeta | null,
-  opts: Partial<GlobalOptions>,
+  opts: any,
 ): void {
   if (opts.json) {
     const output: Record<string, unknown> = { data: items };

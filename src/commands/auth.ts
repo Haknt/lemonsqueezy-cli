@@ -2,9 +2,8 @@ import type { CommandModule } from "yargs";
 import { getAuthenticatedUser } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten } from "../lib/api.js";
 import { outputItem } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
-export const authCommand: CommandModule<{}, GlobalOptions> = {
+export const authCommand: CommandModule = {
   command: "auth",
   describe: "Authentication commands",
   builder: (yargs) =>

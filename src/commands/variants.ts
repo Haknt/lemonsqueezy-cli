@@ -2,7 +2,6 @@ import type { CommandModule } from "yargs";
 import { getVariant, listVariants } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -13,7 +12,7 @@ const COLUMNS = [
   { key: "sort", label: "Sort" },
 ];
 
-export const variantsCommand: CommandModule<{}, GlobalOptions> = {
+export const variantsCommand: CommandModule = {
   command: "variants",
   describe: "Manage variants",
   builder: (yargs) =>
@@ -42,7 +41,7 @@ export const variantsCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listVariants({
                 filter,
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );

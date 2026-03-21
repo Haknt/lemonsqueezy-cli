@@ -6,7 +6,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -15,7 +14,7 @@ const COLUMNS = [
   { key: "expires_at", label: "Expires" },
 ];
 
-export const checkoutsCommand: CommandModule<{}, GlobalOptions> = {
+export const checkoutsCommand: CommandModule = {
   command: "checkouts",
   describe: "Manage checkouts",
   builder: (yargs) =>
@@ -39,7 +38,7 @@ export const checkoutsCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listCheckouts({
                 filter: { storeId },
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );

@@ -2,7 +2,6 @@ import type { CommandModule } from "yargs";
 import { getProduct, listProducts } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -12,7 +11,7 @@ const COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const productsCommand: CommandModule<{}, GlobalOptions> = {
+export const productsCommand: CommandModule = {
   command: "products",
   describe: "Manage products",
   builder: (yargs) =>
@@ -36,7 +35,7 @@ export const productsCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listProducts({
                 filter: { storeId },
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );

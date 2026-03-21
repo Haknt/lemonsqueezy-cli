@@ -11,7 +11,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -28,7 +27,7 @@ const INSTANCE_COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const licensesCommand: CommandModule<{}, GlobalOptions> = {
+export const licensesCommand: CommandModule = {
   command: "licenses",
   describe: "Manage license keys",
   builder: (yargs) =>
@@ -52,7 +51,7 @@ export const licensesCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listLicenseKeys({
                 filter: { storeId },
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );
@@ -153,7 +152,7 @@ export const licensesCommand: CommandModule<{}, GlobalOptions> = {
                   () =>
                     listLicenseKeyInstances({
                       filter,
-                      page: { number: argv.page, size: argv.limit },
+                      page: { number: argv.page as number, size: argv.limit as number },
                     }),
                   argv,
                 );

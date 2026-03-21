@@ -2,7 +2,6 @@ import type { CommandModule } from "yargs";
 import { getStore, listStores } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -14,7 +13,7 @@ const COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const storeCommand: CommandModule<{}, GlobalOptions> = {
+export const storeCommand: CommandModule = {
   command: "store",
   describe: "Manage stores",
   builder: (yargs) =>
@@ -35,7 +34,7 @@ export const storeCommand: CommandModule<{}, GlobalOptions> = {
         () => {},
         async (argv) => {
           const data = await callApi(
-            () => listStores({ page: { number: argv.page, size: argv.limit } }),
+            () => listStores({ page: { number: argv.page as number, size: argv.limit as number } }),
             argv,
           );
           const items = flattenList((data as any).data);

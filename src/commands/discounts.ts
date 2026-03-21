@@ -9,7 +9,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList, resolveStoreId } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -27,7 +26,7 @@ const REDEMPTION_COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const discountsCommand: CommandModule<{}, GlobalOptions> = {
+export const discountsCommand: CommandModule = {
   command: "discounts",
   describe: "Manage discounts",
   builder: (yargs) =>
@@ -51,7 +50,7 @@ export const discountsCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listDiscounts({
                 filter: { storeId },
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );
@@ -77,7 +76,8 @@ export const discountsCommand: CommandModule<{}, GlobalOptions> = {
           const storeId = await resolveStoreId(argv);
           const data = await callApi(
             () =>
-              createDiscount(storeId, {
+              createDiscount({
+                storeId: Number(storeId),
                 name: argv.name as string,
                 code: argv.code as string,
                 amount: argv.amount as number,
@@ -130,7 +130,7 @@ export const discountsCommand: CommandModule<{}, GlobalOptions> = {
                   () =>
                     listDiscountRedemptions({
                       filter,
-                      page: { number: argv.page, size: argv.limit },
+                      page: { number: argv.page as number, size: argv.limit as number },
                     }),
                   argv,
                 );

@@ -6,7 +6,6 @@ import {
 } from "@lemonsqueezy/lemonsqueezy.js";
 import { callApi, flatten, flattenList } from "../lib/api.js";
 import { outputItem, outputList } from "../lib/output.js";
-import type { GlobalOptions } from "../lib/types.js";
 
 const COLUMNS = [
   { key: "id", label: "ID" },
@@ -16,7 +15,7 @@ const COLUMNS = [
   { key: "created_at", label: "Created" },
 ];
 
-export const usageCommand: CommandModule<{}, GlobalOptions> = {
+export const usageCommand: CommandModule = {
   command: "usage",
   describe: "Manage usage records",
   builder: (yargs) =>
@@ -46,7 +45,7 @@ export const usageCommand: CommandModule<{}, GlobalOptions> = {
             () =>
               listUsageRecords({
                 filter,
-                page: { number: argv.page, size: argv.limit },
+                page: { number: argv.page as number, size: argv.limit as number },
               }),
             argv,
           );
@@ -78,7 +77,8 @@ export const usageCommand: CommandModule<{}, GlobalOptions> = {
         async (argv) => {
           const data = await callApi(
             () =>
-              createUsageRecord(argv.subscriptionItemId as string, {
+              createUsageRecord({
+                subscriptionItemId: Number(argv.subscriptionItemId),
                 quantity: argv.quantity as number,
                 action: argv.action as "increment" | "set",
               } as any),
