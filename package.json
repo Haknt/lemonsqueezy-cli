@@ -1,6 +1,6 @@
 {
   "name": "lemonsqueezy-cli",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "CLI for the LemonSqueezy API — built for AI coding agents and humans",
   "author": "Hakan Taskopru",
   "license": "MIT",
