@@ -24,6 +24,10 @@
     "ai-tools",
     "claude-code"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Haknt/lemonsqueezy-cli.git"
+  },
   "engines": {
     "node": ">=20"
   },
